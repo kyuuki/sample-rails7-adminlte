@@ -1,3 +1,12 @@
+<% content_for :title, "Starter Page" %>
+
+<% content_for :breadcrumb_setting do %>
+  <% @breadcrumb = [
+     { name: "Home", path: admin_root_path },
+     { name: "Starter Page" }
+  ] %>
+<% end %>
+
 <div class="row">
   <div class="col-lg-6">
     <div class="card">

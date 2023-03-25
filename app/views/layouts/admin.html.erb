@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Starter</title>
+  <title>AdminLTE 3 | <%= yield :title %></title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <%= render "layouts/admin/navbar" %>
 
   <!-- Main Sidebar Container -->
-  <%= render "layouts/admin/main_sidebar" %>
+  <%= render "layouts/admin/main_sidebar", menu: @menu %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -32,13 +32,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0"><%= yield :title %></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
+            <%= yield :breadcrumb_setting %>
+            <% unless @breadcrumb.nil? %>
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <% @breadcrumb.each do |b| %>
+                <% if b[:path].nil? %>
+                  <li class="breadcrumb-item active"><%= b[:name] %></a></li>
+                <% else %>
+                  <li class="breadcrumb-item"><a href=<%= b[:path] %>><%= b[:name] %></a></li>
+                <% end %>
+              <% end %>
             </ol>
+            <% end %>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
